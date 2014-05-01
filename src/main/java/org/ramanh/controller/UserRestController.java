@@ -18,12 +18,19 @@ public class UserRestController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public List<User> list() {
-		User user = new User();
-		user.setId("1");
-		user.setFirstMame("Hello");
-		user.setLastMame("Rest");
+		User user1 = new User();
+		user1.setId("1");
+		user1.setFirstMame("Hello");
+		user1.setLastMame("Rest1");
+		
+		User user2 = new User();
+		user2.setId("2");
+		user2.setFirstMame("Hello");
+		user2.setLastMame("Rest2");
+		
 		final List<User> users = new ArrayList<>();
-		users.add(user);
+		users.add(user1);
+		users.add(user2);
 		logger.info("Returing %s users", users.size());
 		return users;
 	}
