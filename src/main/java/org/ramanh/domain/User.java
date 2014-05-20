@@ -2,8 +2,8 @@ package org.ramanh.domain;
 
 public class User {
 	String id;
-	String firstMame;
-	String lastMame;
+	String firstName;
+	String lastName;
 
 	public String getId() {
 		return id;
@@ -13,20 +13,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getFirstMame() {
-		return firstMame;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstMame(String firstMame) {
-		this.firstMame = firstMame;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastMame() {
-		return lastMame;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastMame(String lastMame) {
-		this.lastMame = lastMame;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 }

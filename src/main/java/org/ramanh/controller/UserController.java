@@ -1,6 +1,8 @@
 package org.ramanh.controller;
 
+import java.security.SecureRandom;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,14 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="rest/**",headers = { "Accept=text/xml, application/json" })
 public class UserController {
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(UserController.class);
+	private SecureRandom random = new SecureRandom();
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	private Map<String,User> usersMap = new HashMap<>();
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public Collection<User> list() {
+	public Collection<User> listUsers() {
 		return usersMap.values();
 	}
 	
@@ -39,18 +40,38 @@ public class UserController {
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED,reason="New Object created")	
 	public void addUser(@RequestBody User user){
-		usersMap.put(user.getId(), user);		
+		int id = getNextUserId();
+		usersMap.put(id+"", user);		
+	}
+
+	@RequestMapping(value = "/users", method = RequestMethod.PUT)
+	@ResponseStatus(value=HttpStatus.NO_CONTENT,reason="Object Updates")	
+	public void updateUser(@RequestBody User user){
+		String id = user.getId();
+		if(null!=usersMap.get(id)){
+			usersMap.put(id, user);	
+		};
+		
 	}
 	
 	@PostConstruct
 	protected void initUserMap(){
+		random.setSeed(new Date().getTime());
 		for (int i=0;i<1000;i++) {
 			User user = new User();
 			user.setId(""+i);
-			user.setFirstMame("Hello");
-			user.setLastMame("Rest"+i);
+			user.setFirstName("Hello");
+			user.setLastName("Rest"+i);
 			usersMap.put(""+i, user);		
 		}
 		logger.info("Preloaded %s users",usersMap.size());
+	}
+	
+	private int getNextUserId() {
+		int id = random.nextInt();
+		while (usersMap.containsKey(id)) {
+			id = random.nextInt();			
+		}
+		return id;
 	}
 }
