@@ -8,7 +8,10 @@
 	<context:component-scan base-package="org.ramanh.controller" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
+	<!-- static content should not go through DespatchServlet -->
 	<mvc:resources location="/statics/" mapping="/statics/**"/>
+	<!-- Map home page to index view  -->
+	<mvc:view-controller path="/" view-name="index"/>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

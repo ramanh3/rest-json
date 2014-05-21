@@ -54,6 +54,14 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(value=HttpStatus.NO_CONTENT,reason="Object Deleted")	
+	public void deleteeUser(@PathVariable String id) {
+		if(null!=usersMap.get(id)){
+			usersMap.remove(id);	
+		};
+	}
+	
 	@PostConstruct
 	protected void initUserMap(){
 		random.setSeed(new Date().getTime());

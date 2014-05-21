@@ -72,6 +72,17 @@ public class UserControllerTest extends BaseControllerTest {
 				is(existingUser.getLastName())));
 	}
 
+
+	@Test
+	public void testDeleteUser() throws Exception {
+		String userId = "101";
+		// update the user
+		ResultActions perform = mockMvc.perform(delete("/rest/users/" + userId)
+				.accept(MediaType.APPLICATION_JSON));
+		perform.andExpect(status().isNoContent());
+		
+	}
+
 	private ResultActions getUserRequest(String userId) throws Exception {
 		ResultActions performGet = mockMvc.perform(get("/rest/users/" + userId)
 				.accept(MediaType.APPLICATION_JSON));
