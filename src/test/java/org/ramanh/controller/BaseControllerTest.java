@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/dispatcher-servlet.xml")
 public class BaseControllerTest {
 	@Autowired
 	protected  WebApplicationContext wac;
