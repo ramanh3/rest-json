@@ -1,6 +1,12 @@
-var app = angular.module('myApp', ['ngGrid']);
-app.controller('MyCtrl', function($scope, $http) {
-    $scope.filterOptions = {
+var app = angular.module('myApp', ['ngGrid','ngResource']);
+var users = app.factory("users", function($resource) {
+	  return $resource('rest/users/:id');
+	});
+
+app.controller('MyCtrl', function($scope,$http,users) {
+	//Create a resource for users
+	
+	$scope.filterOptions = {
         filterText: "",
         useExternalFilter: true
     };
@@ -30,13 +36,13 @@ app.controller('MyCtrl', function($scope, $http) {
                     $scope.setPagingData(data,page,pageSize);
                 });            
             } else {
-                $http.get('rest/users').success(function (largeLoad) {
-                    $scope.setPagingData(largeLoad,page,pageSize);
-                });
+               	users.query(function(data) {
+                	 $scope.setPagingData(data,page,pageSize);
+                });               
             }
         }, 100);
     };
-	
+    
     $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 	
     $scope.$watch('pagingOptions', function (newVal, oldVal) {

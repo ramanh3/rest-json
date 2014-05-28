@@ -14,7 +14,7 @@
 <script src="statics/js/jquery.min.js"></script>
 <script src="statics/js/angular.min.js"></script> 
 <script src="statics/js/ng-grid.debug.js"></script>
-
+<script src="statics/js/angular-resource.js"></script>
 
 <script type="text/javascript" src="statics/js/main.js"></script>
 </head>

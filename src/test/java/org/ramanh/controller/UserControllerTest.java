@@ -18,7 +18,7 @@ public class UserControllerTest extends BaseControllerTest {
 		ResultActions perform = mockMvc.perform(get("/rest/users/").accept(
 				MediaType.APPLICATION_JSON));
 		perform.andExpect(status().isOk());
-		perform.andExpect(content().contentType("application/json"));
+		perform.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 		perform.andExpect(jsonPath("$").isArray());
 		// perform.andExpect(jsonPath("$").value(hasSize(1000)));
 	}
