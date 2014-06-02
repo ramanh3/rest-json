@@ -40,8 +40,9 @@ public class UserController {
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED,reason="New Object created")	
 	public void addUser(@RequestBody User user){
-		int id = getNextUserId();
-		usersMap.put(id+"", user);		
+		String id = getNextUserId()+"";
+		user.setId(id);
+		usersMap.put(id, user);		
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.PUT)
@@ -56,7 +57,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT,reason="Object Deleted")	
-	public void deleteeUser(@PathVariable String id) {
+	public void deleteUser(@PathVariable String id) {
 		if(null!=usersMap.get(id)){
 			usersMap.remove(id);	
 		};

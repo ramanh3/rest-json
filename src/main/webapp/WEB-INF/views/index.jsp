@@ -21,4 +21,11 @@
 <body ng-controller="MyCtrl">
         <div class="gridStyle" ng-grid="gridOptions"></div>
  </body>
+ <div>
+ 	<button ng-click="addUser()">Create User</button>		
+ 	<button ng-click="getUser()">Read User</button>
+ 	<button ng-click="updateUser()">Update User</button>
+ 	<button ng-click="deleteUser()">Delete User</button>
+ 	
+ </div> 
 </html>
