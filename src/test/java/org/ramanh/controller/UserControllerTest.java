@@ -25,7 +25,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	@Test
 	public void testGetUser() throws Exception {
-		String userId = "101";
+		String userId = "11";
 		ResultActions perform = getUserRequest(userId);
 		perform.andExpect(jsonPath("$.id").value(is(userId)));
 		perform.andExpect(jsonPath("$.lastName").value(is("Rest" + userId)));
@@ -48,7 +48,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	@Test
 	public void testUpdateUser() throws Exception {
-		String userId = "101";
+		String userId = "11";
 		// Read a a user from the service
 		ResultActions perform = getUserRequest(userId);
 
@@ -75,7 +75,7 @@ public class UserControllerTest extends BaseControllerTest {
 
 	@Test
 	public void testDeleteUser() throws Exception {
-		String userId = "101";
+		String userId = "11";
 		// update the user
 		ResultActions perform = mockMvc.perform(delete("/rest/users/" + userId)
 				.accept(MediaType.APPLICATION_JSON));

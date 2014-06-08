@@ -1,0 +1,32 @@
+<div ng-controller="usersCtrl">
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>First Name</td>					
+					<td>Last Name</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+				
+			<tbody>
+				<tr ng-repeat="user in usersList">
+					<td>{{user.id}}</td>
+					<td>{{user.firstName}}</td>
+					<td>{{user.lastName}}</td>
+					<td>	
+						<button ng-click="editUser(user.id)">Update</button> 
+						<button ng-click="deleteUser(user.id)">Delete</button>
+					</td>
+				</tr> 
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>Users Count: {{usersList.length}}<td>
+				</tr>
+			</tfoot>
+		</table>
+		<button ng-click="addUser()">Create User</button>		
+	</div>
+</div>

@@ -8,24 +8,26 @@
 <link rel="stylesheet" type="text/css" href="statics/css/style.css" />
 <!--
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-route.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
 -->
-<script src="statics/js/jquery.min.js"></script>
-<script src="statics/js/angular.min.js"></script> 
-<script src="statics/js/ng-grid.debug.js"></script>
-<script src="statics/js/angular-resource.js"></script>
+<!-- AngularJS and third-party replayed imports -->
+<script src="statics/libs/jquery.min.js"></script>
+<script src="statics/libs/angular.js"></script>
+<script src="statics/libs/angular-route.js"></script>
+<script src="statics/libs/ng-grid.debug.js"></script>
+<script src="statics/libs/angular-resource.js"></script>
 
+<!-- Source code related imports -->
 <script type="text/javascript" src="statics/js/main.js"></script>
+<script type="text/javascript" src="statics/js/controllers/userCtrl.js"></script>
+<script type="text/javascript" src="statics/js/controllers/usersCtrl.js"></script>
+<script type="text/javascript" src="statics/js/services/userService.js"></script>
+<script type="text/javascript" src="statics/js/app-route.js"></script>
+
 </head>
-<body ng-controller="MyCtrl">
-        <div class="gridStyle" ng-grid="gridOptions"></div>
- </body>
- <div>
- 	<button ng-click="addUser()">Create User</button>		
- 	<button ng-click="getUser()">Read User</button>
- 	<button ng-click="updateUser()">Update User</button>
- 	<button ng-click="deleteUser()">Delete User</button>
- 	
- </div> 
-</html>
+<body>
+	<div ng-view></div>
+	<!-- <div ng-include="'statics/pages/usersGrid.html'"></div> -->
+</html>		

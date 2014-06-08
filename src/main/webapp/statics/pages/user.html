@@ -1,0 +1,13 @@
+<div ng-controller="userCtrl">
+	<div>User Name:{{editUser.firstName}} {{editUser.lastName}}</div>
+	<div>
+		<input type="text" id="inputFirstName" ng-model="editUser.firstName"></input>
+	</div>
+	<div>
+		<input type="text" id="inputlastName" ng-model="editUser.lastName"></input>
+	</div>{{editUser.id}}
+	<div>
+		<button ng-click="cancelSave()">Cancel</button>
+		<button ng-click="saveOrUpdateUser(editUser)">Save</button>
+	</div>	
+</div>

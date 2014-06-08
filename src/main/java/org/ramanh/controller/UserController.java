@@ -66,7 +66,7 @@ public class UserController {
 	@PostConstruct
 	protected void initUserMap(){
 		random.setSeed(new Date().getTime());
-		for (int i=0;i<1000;i++) {
+		for (int i=0;i<15;i++) {
 			User user = new User();
 			user.setId(""+i);
 			user.setFirstName("Hello");
