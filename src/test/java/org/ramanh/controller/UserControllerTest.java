@@ -57,11 +57,8 @@ public class UserControllerTest extends BaseControllerTest {
 				.getContentAsString();
 		User existingUser = mapper.readValue(userAsJson, User.class);
 		existingUser.setFirstName(existingUser.getFirstName() + "Updated");
-		String newUserJson = mapper.writeValueAsString(existingUser);
-
-		ResultActions performUpdate = mockMvc.perform(put("/rest/users/")
-				.content(newUserJson).accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON));
+	
+		ResultActions performUpdate = updateUserRequest(existingUser);
 
 		performUpdate.andExpect(status().isNoContent());
 		// Read the updates user from the service
@@ -72,6 +69,18 @@ public class UserControllerTest extends BaseControllerTest {
 				is(existingUser.getLastName())));
 	}
 
+	@Test
+	public void testUpdateUnExistingUser() throws Exception {
+
+		User unexistingUser = new User();
+		unexistingUser.setId("unexistingId");
+		unexistingUser.setFirstName("Test");
+		unexistingUser.setLastName("Test1");
+		// Try to update un-existing user
+		ResultActions perform = updateUserRequest(unexistingUser);
+			
+		perform.andExpect(jsonPath("$.errorCode").value(is("100404")));
+	}
 
 	@Test
 	public void testDeleteUser() throws Exception {
@@ -88,8 +97,16 @@ public class UserControllerTest extends BaseControllerTest {
 				.accept(MediaType.APPLICATION_JSON));
 
 		performGet.andExpect(status().isOk());
-		performGet.andExpect(content().contentType("application/json"));
+		performGet.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 		return performGet;
+	}
+	
+	private ResultActions updateUserRequest(User user)
+			throws Exception {
+		String newUserJson = mapper.writeValueAsString(user);
+		return mockMvc.perform(put("/rest/users/")
+				.content(newUserJson).accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON));
 	}
 
 }

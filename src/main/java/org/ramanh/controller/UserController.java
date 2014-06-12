@@ -7,15 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.ramanh.domain.User;
+import org.ramanh.domain.exception.ErrorInfo;
+import org.ramanh.domain.exception.NotFoundResponseException;
+import org.ramanh.domain.exception.ResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,6 +57,8 @@ public class UserController {
 		String id = user.getId();
 		if(null!=usersMap.get(id)){
 			usersMap.put(id, user);	
+		}else {
+			throw new NotFoundResponseException(String.format("Object with id %s not found!",id));
 		};
 		
 	}
@@ -62,6 +70,13 @@ public class UserController {
 			usersMap.remove(id);	
 		};
 	}
+	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ResponseException.class)
+	@ResponseBody
+	public ErrorInfo handleBadRequest(HttpServletRequest req, ResponseException ex) {
+	    return new ErrorInfo(ex);
+	} 
 	
 	@PostConstruct
 	protected void initUserMap(){

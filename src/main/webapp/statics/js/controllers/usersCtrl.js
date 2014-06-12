@@ -2,13 +2,6 @@ app.controller('usersCtrl', function($scope, $http, $location, Users, userServic
 	//Load users on init (could be done on the routers as well).
 	$scope.usersList = userService.listUsers();
 
-	$scope.addUser = function() {
-		Users.save({
-			'firstName' : 'saved from ui',
-			lastName : "lname"
-		});
-	};
-
 	$scope.editUser = function(userId) {
 		$location.path('edituser/'+userId);	
 	};
@@ -18,7 +11,13 @@ app.controller('usersCtrl', function($scope, $http, $location, Users, userServic
 	};
 
 	$scope.deleteUser = function(userId) {
-		userService.deleteUser(userId);
+		var resource = userService.deleteUser(userId);
+		resource.$promise.then(
+				function(updatedUser){
+					console.log("User with id "+ updatedUser.id +" deleted successfully");
+				}, function(error){
+					console.log("Delete failed with message " +error.data.message);		
+				});
 		$scope.usersList = userService.listUsers();
 	};
 	

@@ -21,10 +21,12 @@
 
 <!-- Source code related imports -->
 <script type="text/javascript" src="statics/js/main.js"></script>
+<script type="text/javascript" src="statics/js/route.js"></script>
 <script type="text/javascript" src="statics/js/controllers/userCtrl.js"></script>
 <script type="text/javascript" src="statics/js/controllers/usersCtrl.js"></script>
 <script type="text/javascript" src="statics/js/services/userService.js"></script>
-<script type="text/javascript" src="statics/js/app-route.js"></script>
+<script type="text/javascript" src="statics/js/services/userAPI.js"></script>
+
 
 </head>
 <body>

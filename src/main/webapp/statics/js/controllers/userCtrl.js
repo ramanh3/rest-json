@@ -7,9 +7,23 @@ app.controller('userCtrl', function($scope, $http, $location,$routeParams, Users
 	
 	$scope.saveOrUpdateUser = function(user){
 		if(user.id){
-			userService.updateUser(user);
+			var resource = userService.updateUser(user);
+			
+			resource.$promise.then(
+					function(updatedUser){
+						console.log("User with id "+ updatedUser.id +" updated successfully");
+					}, function(error){
+						console.log("User updated failed with message " +error.data.message);		
+					});
 		}else{
-			userService.addUser(user);
+			var resource = userService.addUser(user);
+
+			resource.$promise.then(
+					function(updatedUser){
+						console.log("User with id "+ updatedUser.id +" created successfully");
+					}, function(error){
+						console.log("Create failed with message " +error.data.message);		
+					});
 		}
 		
 		$location.path('/');
