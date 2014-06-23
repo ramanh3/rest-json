@@ -17,7 +17,7 @@ public class User {
 		this.id = id;
 	}
 
-	@NotBlank
+	@NotBlank(message="org.ramanh.domain.invalid.empty.firstname")
 	@Pattern(regexp="[a-z,A-Z]*",message="org.ramanh.domain.invalid.firstname")
 	public String getFirstName() {
 		return firstName;
@@ -27,7 +27,7 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	@NotBlank
+	@NotBlank(message="org.ramanh.domain.invalid.empty.lastname")
 	@Pattern(regexp="\\w*",message="org.ramanh.domain.invalid.lastname")
 	public String getLastName() {
 		return lastName;

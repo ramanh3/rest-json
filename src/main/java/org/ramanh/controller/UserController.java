@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.ramanh.domain.User;
 import org.ramanh.domain.exception.ErrorInfo;
+import org.ramanh.domain.exception.InvaildObjectErrorInfo;
 import org.ramanh.domain.exception.InvalideObjectResponseException;
 import org.ramanh.domain.exception.NotFoundResponseException;
 import org.ramanh.domain.exception.ResponseException;
@@ -78,7 +79,7 @@ public class UserController {
 		};
 	}
 	
-	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ExceptionHandler(NotFoundResponseException.class)
 	@ResponseBody
 	public ErrorInfo handleNotFoundRequest(HttpServletRequest req, ResponseException ex) {
@@ -88,8 +89,8 @@ public class UserController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(InvalideObjectResponseException.class)
 	@ResponseBody
-	public ErrorInfo handleBadRequest(HttpServletRequest req, ResponseException ex) {
-	    return new ErrorInfo(ex);
+	public ErrorInfo handleBadRequest(HttpServletRequest req, InvalideObjectResponseException ex) {
+	    return new InvaildObjectErrorInfo(ex);
 	} 
 	
 	

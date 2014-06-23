@@ -1,14 +1,23 @@
 package org.ramanh.controller;
 
 import static org.hamcrest.core.Is.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Map;
+
 import org.junit.Test;
 import org.ramanh.domain.User;
+import org.ramanh.domain.exception.InvaildObjectErrorInfo;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.ResultActions;
 
 public class UserControllerTest extends BaseControllerTest {
@@ -85,14 +94,21 @@ public class UserControllerTest extends BaseControllerTest {
 	@Test
 	public void testUpdateInvalidUser() throws Exception {
 
-		User unexistingUser = new User();
-		unexistingUser.setId("unexistingId");
-		unexistingUser.setFirstName("Test");
-		unexistingUser.setLastName("");
+		User invaildUser = new User();
+		invaildUser.setId("unexistingId");
+		invaildUser.setFirstName("Tes-t");
+		invaildUser.setLastName("^TestValid");
 		// Try to update un-existing user
-		ResultActions perform = updateUserRequest(unexistingUser);
+		ResultActions perform = updateUserRequest(invaildUser);
 			
 		perform.andExpect(jsonPath("$.errorCode").value(is("100422")));
+		MockHttpServletResponse response = perform.andReturn().getResponse();
+		InvaildObjectErrorInfo invalidObjectError = mapper.readValue(response.getContentAsString(),InvaildObjectErrorInfo.class);
+		Map<String, String> fieldErrors = invalidObjectError.getFieldErrors();
+		assertNotNull("Error expected", fieldErrors);
+		assertThat(fieldErrors.size(), is(2));
+		assertThat(fieldErrors.get("lastName"), is("org.ramanh.domain.invalid.lastname"));
+		
 	}
 	
 	@Test
