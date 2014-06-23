@@ -8,14 +8,17 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.ramanh.domain.User;
 import org.ramanh.domain.exception.ErrorInfo;
+import org.ramanh.domain.exception.InvalideObjectResponseException;
 import org.ramanh.domain.exception.NotFoundResponseException;
 import org.ramanh.domain.exception.ResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +56,11 @@ public class UserController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.PUT)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT,reason="Object Updates")	
-	public void updateUser(@RequestBody User user){
+	public void updateUser(@RequestBody @Valid User user,BindingResult bindingResult){
+		if(bindingResult.hasErrors()) {
+			bindingResult.getAllErrors();
+			throw new InvalideObjectResponseException(bindingResult);
+			}
 		String id = user.getId();
 		if(null!=usersMap.get(id)){
 			usersMap.put(id, user);	
@@ -72,11 +79,19 @@ public class UserController {
 	}
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(ResponseException.class)
+	@ExceptionHandler(NotFoundResponseException.class)
+	@ResponseBody
+	public ErrorInfo handleNotFoundRequest(HttpServletRequest req, ResponseException ex) {
+	    return new ErrorInfo(ex);
+	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(InvalideObjectResponseException.class)
 	@ResponseBody
 	public ErrorInfo handleBadRequest(HttpServletRequest req, ResponseException ex) {
 	    return new ErrorInfo(ex);
 	} 
+	
 	
 	@PostConstruct
 	protected void initUserMap(){

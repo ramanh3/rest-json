@@ -83,6 +83,19 @@ public class UserControllerTest extends BaseControllerTest {
 	}
 
 	@Test
+	public void testUpdateInvalidUser() throws Exception {
+
+		User unexistingUser = new User();
+		unexistingUser.setId("unexistingId");
+		unexistingUser.setFirstName("Test");
+		unexistingUser.setLastName("");
+		// Try to update un-existing user
+		ResultActions perform = updateUserRequest(unexistingUser);
+			
+		perform.andExpect(jsonPath("$.errorCode").value(is("100422")));
+	}
+	
+	@Test
 	public void testDeleteUser() throws Exception {
 		String userId = "11";
 		// update the user

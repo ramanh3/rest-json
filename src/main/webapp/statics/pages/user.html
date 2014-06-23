@@ -1,13 +1,23 @@
-<div ng-controller="userCtrl">
+<div  ng-controller="userCtrl">
+<form name="userForm">
 	<div>User Name:{{editUser.firstName}} {{editUser.lastName}}</div>
 	<div>
-		<input type="text" id="inputFirstName" ng-model="editUser.firstName"></input>
+		<input type="text"
+			   ng-model="editUser.firstName"
+			   name="firstName"
+			   ng-minlength="3"/>
+		<p ng-show="userForm.firstName.$error.minlength" class="error-msg">First name should be at least  three letters.</p>
 	</div>
 	<div>
-		<input type="text" id="inputlastName" ng-model="editUser.lastName"></input>
-	</div>{{editUser.id}}
+		<input type="text" ng-model="editUser.lastName"></input>
+	</div>
+	<div>invalid:{{userForm.$invalid}}</div>
+	<div>error:  {{userForm.firstName.$error}}</div>
 	<div>
 		<button ng-click="cancelSave()">Cancel</button>
-		<button ng-click="saveOrUpdateUser(editUser)">Save</button>
-	</div>	
+		<button ng-click="saveOrUpdateUser(editUser)"
+				ng-disabled='userForm.$invalid'>Save</button>
+	</div>
+	
+</form>
 </div>
