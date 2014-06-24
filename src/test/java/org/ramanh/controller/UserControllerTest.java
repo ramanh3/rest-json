@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Map;
 
@@ -87,7 +88,7 @@ public class UserControllerTest extends BaseControllerTest {
 		unexistingUser.setLastName("Test1");
 		// Try to update un-existing user
 		ResultActions perform = updateUserRequest(unexistingUser);
-			
+		perform.andExpect(status().isNotFound());
 		perform.andExpect(jsonPath("$.errorCode").value(is("100404")));
 	}
 
@@ -101,6 +102,7 @@ public class UserControllerTest extends BaseControllerTest {
 		// Try to update un-existing user
 		ResultActions perform = updateUserRequest(invaildUser);
 			
+		perform.andExpect(status().isUnprocessableEntity());
 		perform.andExpect(jsonPath("$.errorCode").value(is("100422")));
 		MockHttpServletResponse response = perform.andReturn().getResponse();
 		InvaildObjectErrorInfo invalidObjectError = mapper.readValue(response.getContentAsString(),InvaildObjectErrorInfo.class);

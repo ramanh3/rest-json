@@ -79,14 +79,14 @@ public class UserController {
 		};
 	}
 	
-	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundResponseException.class)
 	@ResponseBody
 	public ErrorInfo handleNotFoundRequest(HttpServletRequest req, ResponseException ex) {
 	    return new ErrorInfo(ex);
 	}
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	@ExceptionHandler(InvalideObjectResponseException.class)
 	@ResponseBody
 	public ErrorInfo handleBadRequest(HttpServletRequest req, InvalideObjectResponseException ex) {
