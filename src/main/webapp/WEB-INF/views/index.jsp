@@ -26,6 +26,7 @@
 <script type="text/javascript" src="statics/js/controllers/usersCtrl.js"></script>
 <script type="text/javascript" src="statics/js/services/userService.js"></script>
 <script type="text/javascript" src="statics/js/services/userAPI.js"></script>
+<script type="text/javascript" src="statics/js/directives/serverError.js"></script>
 
 
 </head>

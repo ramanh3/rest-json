@@ -6,15 +6,24 @@
 			   ng-model="editUser.firstName"
 			   name="firstName"
 			   ng-minlength="3"
-			   ng-change="invalidServerError($event)" />
-		<span ng-show="userForm.firstName.$dirty && userForm.firstName.$error.minlength" class="error-msg">First name should be at least  three letters.</span>
+			   rst-server-error />
+		<span ng-show="userForm.firstName.$error.minlength">First name should be at least  three letters.</span>
 		<span ng-show="userForm.firstName.$error.serverMessage">{{userForm.firstName.$error.serverMessage}}</span>
 	</div>
 	<div>
-		<input type="text" ng-model="editUser.lastName"></input>
+		<input type="text"
+			   ng-model="editUser.lastName"
+			   name="lastName"
+			   ng-minlength="3"
+			   rst-server-error />
+		<span ng-show="userForm.lastName.$error.minlength" >First name should be at least  three letters.</span>
+		<span ng-show="userForm.lastName.$error.serverMessage">{{userForm.lastName.$error.serverMessage}}</span>
 	</div>
-	<div>invalid:{{userForm.$invalid}}</div>
+	<div>form is valid?:{{userForm.$valid}}</div>
+	<div>first name is valid?:{{userForm.firstName.$valid}}
+	<div>last name is valid?:{{userForm.lastName.$valid}}
 	<div>error:  {{userForm.firstName.$error}}</div>
+	<div>error:  {{userForm.lastName.$error}}</div>
 	<div>
 		<button ng-click="cancelSave()">Cancel</button>
 		<button ng-click="saveOrUpdateUser(editUser)"

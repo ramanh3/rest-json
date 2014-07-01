@@ -6,6 +6,8 @@ app.controller('userCtrl', function($scope, $http, $location,$routeParams,$parse
 		$location.path('/');
 	};
 	
+	$scope.populateValidationErrors =
+	
 	$scope.saveOrUpdateUser = function(user){
 		if(user.id){
 			var resource = userService.updateUser(user);
@@ -13,14 +15,10 @@ app.controller('userCtrl', function($scope, $http, $location,$routeParams,$parse
 			resource.$promise.then(
 					function(updatedUser){
 						console.log("User with id "+ updatedUser.id +" updated successfully");
-						$location.path('/');
-					}, function(error){
-						console.log("User updated failed with message " +error.data.errorMessage);
-					    var serverMessage = $parse('userForm.firstName.$error.serverMessage');
-					    $scope.userForm.$setValidity('firstName', false, $scope.userForm);
-		                serverMessage.assign($scope, error.data.fieldErrors['firstName']);
-					    
-					});
+						
+					},
+						$scope.populateErrors
+					);
 		}else{
 			var resource = userService.addUser(user);
 
@@ -28,19 +26,20 @@ app.controller('userCtrl', function($scope, $http, $location,$routeParams,$parse
 					function(updatedUser){
 						console.log("User with id "+ updatedUser.id +" created successfully");
 						$location.path('/');
-					}, function(error){
-						console.log("Create failed with message " +error.data.errorMessage);					
-					});
+					},
+						$scope.populateErrors
+					);
 		}
 		
 	};
 	
-	$scope.invalidServerError= function (changeEvent){
-		//ng-change does not create an event like on-click
-		console.log(changeEvent);
-		 var serverMessage = $parse('userForm.firstName.$error.serverMessage');
-		 $scope.userForm.$setValidity('firstName', true, $scope.userForm);
-         serverMessage.assign($scope, undefined);		
-	};
-	
+	$scope.populateErrors = function(error){
+		console.log("User updated/create failed with message " +error.data.errorMessage);
+		//copy all errors from response to controller 
+		for(var field in error.data.fieldErrors){
+			var serverMessage = $parse('userForm.'+field+'.$error.serverMessage');
+			serverMessage.assign($scope, error.data.fieldErrors[field]);
+			$scope.userForm[field].$setValidity('rstServerError', false);
+		}
+	}
 });
