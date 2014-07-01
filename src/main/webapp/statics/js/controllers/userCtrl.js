@@ -15,7 +15,7 @@ app.controller('userCtrl', function($scope, $http, $location,$routeParams,$parse
 			resource.$promise.then(
 					function(updatedUser){
 						console.log("User with id "+ updatedUser.id +" updated successfully");
-						
+						$location.path('/');
 					},
 						$scope.populateErrors
 					);
@@ -41,5 +41,5 @@ app.controller('userCtrl', function($scope, $http, $location,$routeParams,$parse
 			serverMessage.assign($scope, error.data.fieldErrors[field]);
 			$scope.userForm[field].$setValidity('rstServerError', false);
 		}
-	}
+	};
 });
