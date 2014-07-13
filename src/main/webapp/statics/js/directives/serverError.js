@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp').directive('rstServerError', function() {
+app.directive('rstServerError', function() {
 	return {
 		require : 'ngModel',
 		link : function(scope, element, attrs, ngModelCtrl) {

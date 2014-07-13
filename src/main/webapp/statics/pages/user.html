@@ -8,7 +8,7 @@
 			   ng-minlength="3"
 			   rst-server-error />
 		<span ng-show="userForm.firstName.$error.minlength">First name should be at least  three letters.</span>
-		<span ng-show="userForm.firstName.$error.serverMessage">{{userForm.firstName.$error.serverMessage}}</span>
+		<span ng-show="userForm.firstName.$error.serverMessage" translate="org.ramanh.domain.invalid.firstname"></span>
 	</div>
 	<div>
 		<input type="text"
@@ -17,7 +17,7 @@
 			   ng-minlength="3"
 			   rst-server-error />
 		<span ng-show="userForm.lastName.$error.minlength" >First name should be at least  three letters.</span>
-		<span ng-show="userForm.lastName.$error.serverMessage">{{userForm.lastName.$error.serverMessage}}</span>
+		<span ng-show="userForm.lastName.$error.serverMessage" translate="org.ramanh.domain.invalid.lastname">1</span>
 	</div>
 	<div>form is valid?:{{userForm.$valid}}</div>
 	<div>first name is valid?:{{userForm.firstName.$valid}}
