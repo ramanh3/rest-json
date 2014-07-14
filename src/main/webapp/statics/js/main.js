@@ -6,7 +6,18 @@ app = angular.module('myApp',
 						 ]);
 app.config(function($translateProvider) {
 	  $translateProvider.translations('en', {
-		'org.ramanh.domain.invalid.lastname':  'Last name should include letters and numbers only.', 
-		'org.ramanh.domain.invalid.firstname': 'First name should include letters only.',
+		'org.ramanh.domain.user':{
+				 'username':'User Name'
+				,'invalid':{
+					'lastname' :{
+						'character':  'Last name should include letters and numbers only.',
+						'minlength':  'Last name should be at least three letters.'
+					},
+					'firstname':{
+						'minlength': 'First name should be at least three letters',
+						'character': 'First name should include letters only.'
+					},
+				},
+		}		
 	  }).preferredLanguage('en');;
 	});

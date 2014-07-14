@@ -17,8 +17,12 @@ public class User {
 		this.id = id;
 	}
 
-	@NotBlank(message="org.ramanh.domain.invalid.empty.firstname")
-	@Pattern(regexp="[a-z,A-Z]*",message="org.ramanh.domain.invalid.firstname")
+	/**
+	 *  
+	 * @return
+	 */
+	@NotBlank(message="org.ramanh.domain.user.invalid.firstname.empty")
+	@Pattern(regexp="[a-z,A-Z]*",message="org.ramanh.domain.user.invalid.firstname.character")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -27,8 +31,8 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	@NotBlank(message="org.ramanh.domain.invalid.empty.lastname")
-	@Pattern(regexp="\\w*",message="org.ramanh.domain.invalid.lastname")
+	@NotBlank(message="org.ramanh.domain.user.invalid.lastname.empty")
+	@Pattern(regexp="\\w*",message="org.ramanh.domain.user.invalid.lastname.character")
 	public String getLastName() {
 		return lastName;
 	}
