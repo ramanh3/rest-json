@@ -1,0 +1,17 @@
+{
+	"org.ramanh.domain.user" : {
+		   "username":"User Name: {{firstname}} {{lastname}}",
+		   "invalid":{
+			   "lastname" :{
+					"character":  "Last name should include letters and numbers only.",
+					"minlength":  "Last name should be at least three letters."
+				     },
+				"firstname":{
+					"minlength": "First name should be at least three letters",
+				    "character": "First name should include letters only."
+				   }            
+		   }
+	    }
+}
+
+

@@ -1,8 +1,9 @@
 <div  ng-controller="userCtrl">
 <form name="userForm" novalidate>
     <!-- it looks like that  translate directive can not handle both key and tag body so we used span here-->
-	<div translate>{{org.ramanh.domain.user.username}}</div>
-	<div>
+	<div translate="org.ramanh.domain.user.username"
+		 translate-values="{ firstname: editUser.firstName, lastname: editUser.lastName }"/>
+	<div> 
 		<input type="text"
 			   ng-model="editUser.firstName"
 			   name="firstName"

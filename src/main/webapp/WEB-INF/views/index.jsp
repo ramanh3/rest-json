@@ -19,6 +19,7 @@
 <script src="statics/libs/ng-grid.debug.js"></script>
 <script src="statics/libs/angular-resource.js"></script>
 <script src="statics/libs/angular-translate.js"></script>
+<script src="statics/libs/angular-translate-loader-static-files.js"></script>
 <!-- Source code related imports -->
 <script type="text/javascript" src="statics/js/main.js"></script>
 <script type="text/javascript" src="statics/js/route.js"></script>
