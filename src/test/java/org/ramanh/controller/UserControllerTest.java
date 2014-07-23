@@ -109,7 +109,7 @@ public class UserControllerTest extends BaseControllerTest {
 		Map<String, String> fieldErrors = invalidObjectError.getFieldErrors();
 		assertNotNull("Error expected", fieldErrors);
 		assertThat(fieldErrors.size(), is(2));
-		assertThat(fieldErrors.get("lastName"), is("org.ramanh.domain.invalid.lastname"));
+		assertThat(fieldErrors.get("lastName"), is("org.ramanh.domain.user.invalid.lastname.character"));
 		
 	}
 	
